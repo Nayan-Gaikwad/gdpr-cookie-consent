@@ -368,7 +368,7 @@ error_log("Notify me classic.php notify_message ".$the_options['notify_message']
 																						class="purposes-switch-handler <?php echo esc_html("legint-switch", "gdpr-cookie-consent");?> <?php echo esc_html($value->id);?>"  
 																						type="checkbox" 
 																						name="gdpr_messagebar_body_button_legint_purpose_<?php echo esc_html($value->id); ?>" 
-																						value=<?php echo esc_html( $value->id ); ?>>
+																						value=<?php echo 'legintpurpose'.esc_html( $value->id ); ?>>
 																						<label for="gdpr_messagebar_body_button_legint_purpose_<?php echo esc_html($value->id); ?>" >
 																							<span class="label-text"><?php echo esc_html( $value->id ); ?></span>
 																						</label>
@@ -394,7 +394,7 @@ error_log("Notify me classic.php notify_message ".$the_options['notify_message']
 																						class="<?php echo esc_html($classnames)?>-switch-handler <?php echo esc_html("consent-switch", "gdpr-cookie-consent");?> <?php echo esc_html($value->id);?>"
 																						type="checkbox" 
 																						name="gdpr_messagebar_body_button_consent_<?php echo esc_html($classnames)?>_<?php echo esc_html($value->id); ?>"
-																						value=<?php echo esc_html( $value->id ); ?> >
+																						value=<?php echo 'contentpurpose'.esc_html( $value->id ); ?> >
 																						<label for="gdpr_messagebar_body_button_consent_<?php echo esc_html($classnames)?>_<?php echo esc_html($value->id); ?>">
 																							<span class="label-text"><?php echo esc_html( $value->id ); ?></span>
 																						</label>
@@ -478,7 +478,7 @@ error_log("Notify me classic.php notify_message ".$the_options['notify_message']
 													class="vendor-all-switch-handler" 
 													type="checkbox" 
 													name="gdpr_messagebar_body_button_<?php echo esc_html( $category['gdpr_cookie_category_slug'] ); ?>" 
-													value=<?php echo esc_html( $data->allvendors ); ?>>
+													value=<?php echo 'allvendors'.esc_html( $data->allvendors ); ?>>
 													<label for="gdpr_messagebar_body_button_<?php echo esc_html( $category['gdpr_cookie_category_slug'] ); ?>">
 														<span class="label-text"><?php echo esc_html( $category['gdpr_cookie_category_name'] ); ?></span>
 													</label>
@@ -528,7 +528,7 @@ error_log("Notify me classic.php notify_message ".$the_options['notify_message']
 																						class="vendor-switch-handler <?php echo esc_html("legint-switch", "gdpr-cookie-consent");?> <?php echo esc_html($vendor->id);?>"  
 																						type="checkbox" 
 																						name="gdpr_messagebar_body_button_legint_vendor_<?php echo esc_html($vendor->id);?>" 
-																						value=<?php echo esc_html( $vendor->id ); ?>>
+																						value=<?php echo 'legintvendor'.esc_html( $vendor->id ); ?>>
 																						<label for="gdpr_messagebar_body_button_legint_vendor_<?php echo esc_html($vendor->id);?>">
 																							<span class="label-text"><?php echo esc_html($vendor->id);?></span>
 																						</label>
@@ -555,7 +555,7 @@ error_log("Notify me classic.php notify_message ".$the_options['notify_message']
 																						class="vendor-switch-handler <?php echo esc_html("consent-switch", "gdpr-cookie-consent");?> <?php echo esc_html($vendor->id);?>" 
 																						type="checkbox" 
 																						name="gdpr_messagebar_body_button_consent_vendor_<?php echo esc_html($vendor->id);?>" 
-																						value=<?php echo esc_html( $vendor->id ); ?>>
+																						value=<?php echo 'consentvendor'.esc_html( $vendor->id ); ?>>
 																						<label for="gdpr_messagebar_body_button_consent_vendor_<?php echo esc_html($vendor->id);?>">
 																							<span class="label-text"><?php echo esc_html( $vendor->id ); ?></span>
 																						</label>

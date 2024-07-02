@@ -29,6 +29,19 @@ GVL.baseUrl = "https://923b74fe37.nxcli.io/rgh/";
 //     console.log(request.responseText);
 // 
 GVL.baseUrl = iabtcf.ajax_url
+let cmplzLanguageJson;
+const purposesPromise = fetch("http://localhost:8888/wordpress/vendor-list.json", {
+	method: "GET",
+})
+	.then(response => response.json())
+	.then(data => {
+		cmplzLanguageJson = data;
+        console.log("Nayan data")
+        console.log(cmplzLanguageJson)
+	})
+	.catch(error => {
+		console.log('Error:', error);
+	});
 const gvl = new GVL();
 console.log("Here is the GVL object");
 // console.log(gvl);
@@ -136,7 +149,9 @@ console.log(JSON.stringify(data));
 
 // create a new TC string
 const tcModel = new TCModel(gvl);
-tcModel.cmpId = 2; // test id 
+// tcModel.cmpId = 2; // test id 
+// tcModel.cmpVersion = 1; // test version 
+tcModel.cmpId = 332; // test id 
 tcModel.cmpVersion = 1; // test version 
 
 // console.log("Here is the tcModel object :");

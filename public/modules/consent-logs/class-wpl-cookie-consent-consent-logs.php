@@ -447,6 +447,10 @@ class Gdpr_Cookie_Consent_Consent_Logs {
 							}
 							$wpl_cookie_details['wpl_viewed_cookie'] = $js_cookie_list['wpl_viewed_cookie'];
 						}
+						if(isset($_POST['iabtcfConsentData'])) 
+						{
+							error_log("Here I am");
+						}
 						break;
 					case 'confirm':
 					case 'cancel':

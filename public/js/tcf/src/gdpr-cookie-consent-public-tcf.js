@@ -7,15 +7,71 @@
  */
 
 import { TCModel, TCString, GVL } from '@iabtechlabtcf/core';
+import {CmpApi} from '@iabtechlabtcf/cmpapi';
+const cmpApi = new CmpApi(2, 3, true);
+
+// const cmpApi = new CmpApi(2, 3, false, {
+
+//     'bingo': (callback, dogName) => {
+  
+//       callback(`There was a farmer who had a dog, and ${dogName} was his name-o`);
+  
+//     },
+  
+//     'connectBones': (callback, startBone, endBone) => {
+  
+//       callback(`The ${startBone} bone is connected to the ${endBone} bone.`);
+  
+//     },
+  
+//   });
+  
+//   const songLyricCallback = (lyrics, success) => {
+  
+//     if(success) {
+  
+//       console.log(lyrics)
+  
+//     } else {
+  
+//       console.error('Error: could not get song lyrics')
+  
+//     }
+  
+//   }
+  
+//   __tcfapi('bingo', 2, songLyricCallback, 'Bingo');
+//   // ouput: There was a farmer who had a dog, and Bingo was his name-o
+  
+//   __tcfapi('connectBones', 2, songLyricCallback, 'knee', 'thigh');
+  // ouput: The knee bone is connected to the thigh bone
+
+console.log("Checking for cmpApi instance")
+console.log(cmpApi)
 // const { TCModel, TCString, GVL } = require('@iabtechlabtcf/core');
 
 // GVL.baseUrl = "http://localhost:8888/wordpress/";
 // GVL.baseUrl = "https://app.wplegalpages.com/";
 // GVL.baseUrl = "https://wplegalpages.com/vendor-list.json";
-GVL.baseUrl = "https://923b74fe37.nxcli.io/rgh/";
-
+// GVL.baseUrl = "https://923b74fe37.nxcli.io/rgh/";
 GVL.baseUrl = iabtcf.ajax_url
+let cmplzLanguageJson;
+const purposesPromise = fetch("http://localhost:8888/wordpress/vendor-list.json", {
+	method: "GET",
+})
+	.then(response => response.json())
+	.then(data => {
+		cmplzLanguageJson = data;
+        console.log("Nayan data")
+        console.log(cmplzLanguageJson)
+	})
+	.catch(error => {
+		console.log('Error:', error);
+	});
+
+
 const gvl = new GVL();
+console.log("GVL object")
 console.log(gvl);
 
 gvl.readyPromise.then(() => {
@@ -31,15 +87,15 @@ gvl.readyPromise.then(() => {
   iabtcf.consentdata.purpose_legint=[];
   if(iabtcf.consentdata.feature_consent === "undefined")
   iabtcf.consentdata.feature_consent=[];
-  console.log( "All vendor data" )
-  console.log( iabtcf.consentdata)
+//   console.log( "All vendor data" )
+//   console.log( iabtcf.consentdata)
  
 });
 
 // create a new TC string
 const tcModel = new TCModel(gvl);
 var encodedString="default tc string...";
-tcModel.cmpId = 2; // test id 
+tcModel.cmpId = 332; // test id 
 tcModel.cmpVersion = 1; // test version 
 (function( $ ) {
 	'use strict';
@@ -70,6 +126,7 @@ $( '.gdpr_action_button' ).click(
             // Set values on tcModel...           
             encodedString = TCString.encode(tcModel);
             iabtcf.consentdata.tcString = encodedString
+            cmpApi.update(encodedString, true);
             console.log("Here")
             console.log(iabtcf.consentdata)
             console.log(encodedString); // TC string encoded begins with 'C'

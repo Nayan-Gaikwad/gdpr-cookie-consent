@@ -121,6 +121,7 @@ class Gdpr_Cookie_Consent_Public {
 		wp_register_script( $this->plugin_name . '-bootstrap-js', plugin_dir_url( __FILE__ ) . 'js/bootstrap/bootstrap.bundle.js', array( 'jquery' ), $this->version, true );
 		wp_register_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/gdpr-cookie-consent-public' . GDPR_CC_SUFFIX . '.js#async', array( 'jquery' ), $this->version, true );
 		wp_register_script( $this->plugin_name.'-tcf', plugin_dir_url( __FILE__ ) . '../admin/js/vue/gdpr-cookie-consent-admin-tcstring' . GDPR_CC_SUFFIX . '.js#async', array( 'jquery' ), $this->version, true );
+		wp_register_script( $this->plugin_name.'-tcfstub', plugin_dir_url( __FILE__ ) . '../admin/js/vue/gdpr-cookie-consent-admin-tcfstub' . GDPR_CC_SUFFIX . '.js#async', array( 'jquery' ), $this->version, true );
 	}
 
 	/**
@@ -636,13 +637,17 @@ class Gdpr_Cookie_Consent_Public {
 			}
 			$categories      = Gdpr_Cookie_Consent_Cookie_Custom::get_categories( true );
 			$cookies         = $this->get_cookies();
-			$categories_data = array();
+			$categories_data = array();error_log("categories_data: ".print_r($cookies, true));
 			// The array returned by json_decode is being sanitised by function gdpr_cookie_consent_sanitize_decoded_function.
 			$preference_cookies = isset( $_COOKIE['wpl_user_preference'] ) ? json_decode( stripslashes( wp_unslash( $_COOKIE['wpl_user_preference'] ) ), true ) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			if ( '' !== $preference_cookies ) {
 				$preference_cookies = $this->gdpr_cookie_consent_sanitize_decoded_json( $preference_cookies );
+				// error_log("User pref: ".print_r($preference_cookies, true));
+
 			}
+			error_log("User pref: ".print_r(isset( $_COOKIE['vendor_consent'] ) ? $_COOKIE['vendor_consent']: "No data", true));
 			$viewed_cookie                = isset( $_COOKIE['wpl_viewed_cookie'] ) ? sanitize_text_field( wp_unslash( $_COOKIE['wpl_viewed_cookie'] ) ) : '';
+			error_log("viewed_cookie: ".print_r($viewed_cookie, true));
 			$the_options['viewed_cookie'] = $viewed_cookie;
 			foreach ( $categories as $category ) {
 				$total     = 0;
@@ -674,6 +679,7 @@ class Gdpr_Cookie_Consent_Public {
 				$iabtcfConsentData = $_POST['iabtcfConsentData']; 
 				// error_log("To be saved in db".print_r($iabtcfConsentData,true));
 				update_option( 'iabtcfConsent', $iabtcfConsentData );
+				// update_post_meta( $post_id, '_wplconsentlogs_details_iabtcfConsent', $iabtcfConsentData );
 			} 
 
 			if ( true === $the_options['button_settings_is_on'] || true === $the_options['button_accept_all_is_on'] || true === $the_options['button_accept_is_on'] ) {
@@ -789,6 +795,7 @@ class Gdpr_Cookie_Consent_Public {
 			);
 
 			$gdpr_post_meta_values_array = array();
+			error_log("Result: ".print_r($result, true));
 
 			foreach ( $results as $result ) {
 				$gdpr_post_meta_values_array[] = array(
